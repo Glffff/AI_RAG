@@ -28,7 +28,7 @@ class VectorRepository(ABC):
         raise NotImplementedError("Vector repository not implemented")
     
     @abstractmethod
-    def search(self, query_embedding: List[float], top_k: int = 5) -> List[Chunk]:
+    def search(self, query_embedding: List[float]) -> List[Chunk]:
         raise NotImplementedError("Vector search not implemented")
 
 class LLMService(ABC):

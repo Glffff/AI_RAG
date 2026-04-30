@@ -5,7 +5,7 @@ import ollama
 
 class OllamaLLMService(LLMService):
     def __init__(self, model_name: str):
-        self.model_name = model_name
+        self._model_name = model_name
 
     def generate_answer(self, question: Question, context_chunks: List[Chunk]) -> str:
         context = "\n".join(f"[Page {chunk.page_number}: {chunk.text}]" for chunk in context_chunks)
@@ -16,12 +16,12 @@ class OllamaLLMService(LLMService):
                   """
         
         response = ollama.chat(
-            model=self.model_name,
+            model=self._model_name,
             messages=[
                 {
                     "role": "user",
                     "content": prompt
                 }
-            ]
+            ],
         )
         return response["message"]["content"]

@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     
     db_dir: str
     openai_api_key: str
-    llm_provider: str = "local"
+    llm_provider: str = "ollama3.1:8b"
     embeddings_provider: str = "local"
     chunk_size: int = 1000
     chunk_overlap: int = 200
