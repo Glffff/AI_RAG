@@ -1,0 +1,31 @@
+from rag_service.use_cases.ask_question_use_case import AskQuestionUseCase
+from rag_service.use_cases.ingest_pdf_use_case import IngestPdfUseCase
+
+from rag_service.infrastructure.embedding import SentenceTransformerEmbeddingService
+from rag_service.infrastructure.memory_vector_repo import MemoryVectorRepository
+from rag_service.infrastructure.llm_service import OllamaLLMService
+from rag_service.infrastructure.pdf_parser import PymupdfParser
+from rag_service.infrastructure.simple_chunker import SimpleChunker
+from rag_service.infrastructure.memory_document_repo import MemoryDocumentRepository  
+
+from config import settings
+
+class DependencyInjector:
+    def __init__(self):
+        self._services = {}
+    
+    def create_ask_question_use_case(self) -> AskQuestionUseCase:
+        return AskQuestionUseCase(
+            SentenceTransformerEmbeddingService(model_name=settings.local_embeddings_model), 
+            MemoryVectorRepository(top_k=settings.top_k_chunks), 
+            OllamaLLMService(model_name=settings.llm_provider)
+        )
+    
+    def create_ingest_pdf_use_case(self):
+        return IngestPdfUseCase(
+            PymupdfParser(), 
+            SimpleChunker(chunk_size=settings.chunk_size, chunk_overlap=settings.chunk_overlap), 
+            SentenceTransformerEmbeddingService(model_name=settings.local_embeddings_model), 
+            MemoryDocumentRepository(), 
+            MemoryVectorRepository(top_k=settings.top_k_chunks)
+        )
