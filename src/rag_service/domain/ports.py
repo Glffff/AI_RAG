@@ -9,7 +9,7 @@ class PdfParser(ABC):
 
 class Chunker(ABC):
     @abstractmethod
-    def chunk(self, document_id: str, pages: List[Page]) -> List[Chunk]:
+    def chunk(self, filename: str, pages: List[Page]) -> List[Chunk]:
         raise NotImplementedError("Text chunking not implemented")
     
 class Embedder(ABC):

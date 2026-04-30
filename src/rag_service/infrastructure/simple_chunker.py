@@ -7,21 +7,21 @@ class SimpleChunker(Chunker):
         self._chunk_size = chunk_size
         self._chunk_overlap = chunk_overlap
     
-    def chunk(self, document_id: str, pages: list[Page]) -> list[Chunk]:
+    def chunk(self, filename: str, pages: list[Page]) -> list[Chunk]:
         chunks = []
         for page in pages:
-            page_chunks = self._split_text(page.content, page.number, document_id)
+            page_chunks = self._split_text(page.content, page.number, filename)
             chunks.extend(page_chunks)
         return chunks
     
-    def _split_text(self, text: str, page_number: int, document_id: str) -> list[Chunk]:
+    def _split_text(self, text: str, page_number: int, filename: str) -> list[Chunk]:
         chunks = []
         
         if len(text) <= self._chunk_size:
             chunks.append(
                 Chunk(
                     id=str(uuid.uuid4()),
-                    document_id=document_id,
+                    filename=filename,
                     page_number=page_number,
                     text=text,
                 )
@@ -39,7 +39,7 @@ class SimpleChunker(Chunker):
             chunks.append(
                 Chunk(
                     id=str(uuid.uuid4()),
-                    document_id=document_id,
+                    filename=filename,
                     page_number=page_number,
                     text=chunk_text,
                 )

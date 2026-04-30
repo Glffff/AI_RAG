@@ -10,9 +10,10 @@ class Page:
 @dataclass
 class Chunk:
     id: str
-    document_id: str
+    filename: str
     page_number: int
     text: str
+    score: float = 0.0
 
 @dataclass
 class Document:

@@ -34,7 +34,8 @@ async def ask_question(question: Question):
         "citations": [
             {
                 "page_number": chunk.page_number,
-                "document_name": chunk.document_id,
+                "document_name": chunk.filename,
+                "score": chunk.score,
                 "text": chunk.text[:100]
             }
             for chunk in answer.used_chunks

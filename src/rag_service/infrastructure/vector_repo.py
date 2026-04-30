@@ -54,9 +54,10 @@ class QdrantVectorRepository(VectorRepository):
                     vector=embedding,
                     payload={
                         "chunk_id": chunk.id,
-                        "document_id": chunk.document_id,
+                        "document_id": chunk.filename,
                         "page_number": chunk.page_number,
-                        "text": chunk.text
+                        "text": chunk.text,
+                        "score": chunk.score
                     }
                 )
             ]
@@ -78,9 +79,10 @@ class QdrantVectorRepository(VectorRepository):
 
             chunk = Chunk(
                 id=payload["chunk_id"],
-                document_id=payload["document_id"],
+                filename=payload["document_id"],
                 page_number=payload["page_number"],
-                text=payload["text"]
+                text=payload["text"],
+                score=point.score
             )
             citations.append(chunk)
         return citations
