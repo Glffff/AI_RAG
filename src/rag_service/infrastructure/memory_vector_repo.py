@@ -1,3 +1,4 @@
+import numpy as np
 from rag_service.domain.ports import VectorRepository, Chunk
 
 class MemoryVectorRepository(VectorRepository):
@@ -11,5 +12,16 @@ class MemoryVectorRepository(VectorRepository):
         })
     
     def search(self, query_embedding: list[float], top_k: int) -> list[Chunk]:
-        # For simplicity, return the first top_k chunks (no real similarity search)
-        return [vector["chunk"] for vector in self.vectors[:top_k]]
+        query = np.array(query_embedding)
+        score_item = []
+        for item in self.vectors:
+            score = self._get_cosine_similarity(query, np.array(item["embedding"]))
+            score_item.append((score, item["chunk"]))
+        score_item.sort(key=lambda x: x[0], reverse=True)
+        return [chunk for _, chunk in score_item[:top_k]]
+    
+    def _get_cosine_similarity(self, a: np.ndarray, b: np.ndarray) -> float:
+        denominator = np.linalg.norm(a) * np.linalg.norm(b)
+        if denominator == 0:
+            return 0.0
+        return np.dot(a, b) / denominator
