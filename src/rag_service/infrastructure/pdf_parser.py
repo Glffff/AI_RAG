@@ -16,8 +16,3 @@ class PymupdfParser(PdfParser):
             raise ValueError(f"Failed to parse PDF file: {file_path}")
 
         return pages
-    
-class PdfPlumberParser(PdfParser):
-    def parse(self, file_path: str) -> list[Page]:
-        pages = []
-        return pages

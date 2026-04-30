@@ -13,6 +13,6 @@ class AskQuestionUseCase:
     
     def execute(self, question: Question) -> Answer:
         question_embedding = self.embedder.get_embedding(question.text)
-        relevant_chunks = self.vector_repo.search(question_embedding)
-        answer_text = self.llm_service.generate_answer(question, relevant_chunks)
-        return Answer(text=answer_text, used_chunks=relevant_chunks)
+        related_chunks = self.vector_repo.search(question_embedding)
+        answer_text = self.llm_service.generate_answer(question, related_chunks)
+        return Answer(text=answer_text, used_chunks=related_chunks)

@@ -3,10 +3,14 @@ from pydantic_settings import SettingsConfigDict, BaseSettings, PydanticBaseSett
 
 
 class Settings(BaseSettings):
-    
+
     db_dir: str
+    collection_name: str
+    qdrant_vector_size: int
+    qdrant_url: str
+
     openai_api_key: str
-    llm_provider: str = "ollama3.1:8b"
+    llm_provider: str
     embeddings_provider: str = "local"
     chunk_size: int = 1000
     chunk_overlap: int = 200

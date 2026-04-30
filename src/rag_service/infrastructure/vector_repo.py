@@ -63,20 +63,24 @@ class QdrantVectorRepository(VectorRepository):
         )
     
     def search(self, query_embedding: list[float]) -> list[Chunk]:
-        search_result = self._client.search(
+        search_result = self._client.query_points(
             collection_name=self._collection_name,
-            query_vector=query_embedding,
+            query=query_embedding,
             limit=self._top_k,
             with_payload=True
         )
-        chunks = []
-        for result in search_result:
-            payload = result.payload
+        citations = []
+        for point in search_result.points:
+            payload = point.payload
+            
+            if payload is None:
+                continue
+
             chunk = Chunk(
                 id=payload["chunk_id"],
                 document_id=payload["document_id"],
                 page_number=payload["page_number"],
                 text=payload["text"]
             )
-            chunks.append(chunk)
-        return chunks
+            citations.append(chunk)
+        return citations

@@ -1,18 +1,7 @@
 import os
 
 from fastapi import FastAPI, UploadFile, File
-from src.rag_service.infrastructure.pdf_parser import PymupdfParser
-from src.rag_service.infrastructure.simple_chunker import SimpleChunker
-from src.rag_service.infrastructure.embedding import SentenceTransformerEmbeddingService
-from src.rag_service.infrastructure.memory_document_repo import MemoryDocumentRepository    
-from src.rag_service.infrastructure.memory_vector_repo import MemoryVectorRepository
-from src.rag_service.infrastructure.llm_service import OllamaLLMService
-
-from src.rag_service.use_cases.ingest_pdf_use_case import IngestPdfUseCase
-from src.rag_service.use_cases.ask_question_use_case import AskQuestionUseCase
-
 from src.rag_service.domain.models import Question
-
 from src.dependency_injector import DependencyInjector
 
 app = FastAPI()
@@ -42,9 +31,10 @@ async def ask_question(question: Question):
     answer = ask_question_use_case.execute(question)
     return {
         "answer": answer.text,
-        "used_chunks": [
+        "citations": [
             {
                 "page_number": chunk.page_number,
+                "document_name": chunk.document_id,
                 "text": chunk.text[:100]
             }
             for chunk in answer.used_chunks
