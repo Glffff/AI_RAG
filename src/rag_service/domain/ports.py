@@ -1,5 +1,5 @@
 from typing import List
-from .models import Page, Document, Chunk
+from .models import Page, Document, Chunk, Question
 
 class PdfParser:
     def parse(self, file_path: str) -> List[Page]:
@@ -23,3 +23,7 @@ class VectorRepository:
     
     def search(self, query_embedding: List[float], top_k: int = 5) -> List[Chunk]:
         raise NotImplementedError("Vector search not implemented")
+
+class LLMService:
+    def generate_answer(self, question: Question, context_chunks: List[Chunk]) -> str:
+        raise NotImplementedError("LLM service not implemented")
