@@ -13,28 +13,14 @@ from rag_service.use_cases.ask_question_use_case import AskQuestionUseCase
 
 from rag_service.domain.models import Question
 
+from dependency_injector import DependencyInjector
+
 app = FastAPI()
 
-pdf_parser = PymupdfParser()
-chunker = SimpleChunker()
-embedder = SentenceTransformerEmbeddingService(model_name="all-MiniLM-L6-v2")
-document_repo = MemoryDocumentRepository()
-vector_repo = MemoryVectorRepository()
-llm_service = OllamaLLMService(model_name="llama3.1:8b")
+dependency_injector = DependencyInjector()
 
-ingest_use_case = IngestPdfUseCase(
-    pdf_parser, 
-    chunker, 
-    embedder, 
-    document_repo, 
-    vector_repo
-)
-
-ask_question_use_case = AskQuestionUseCase(
-    embedder, 
-    vector_repo, 
-    llm_service
-)
+ingest_use_case = dependency_injector.create_ingest_pdf_use_case()
+ask_question_use_case = dependency_injector.create_ask_question_use_case()
 
 @app.post("/upload")
 async def upload_pdf(file: UploadFile = File(...)):
@@ -53,7 +39,7 @@ async def upload_pdf(file: UploadFile = File(...)):
 
 @app.post("/ask")
 async def ask_question(question: Question):
-    answer = ask_question_use_case.execute(question, top_k=3)
+    answer = ask_question_use_case.execute(question)
     return {
         "answer": answer.text,
         "used_chunks": [
