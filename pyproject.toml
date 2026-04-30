@@ -1,0 +1,26 @@
+[project]
+name = "ai-rag"
+version = "0.1.0"
+description = "Minimal PDF RAG System"
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "langchain>=0.0.100,<0.2",
+    "langchain-community>=0.0.10,<0.2",
+    "langchain-openai>=0.0.5,<0.1",
+    "langchain-huggingface>=0.0.1,<0.1",
+    "langchain-anthropic>=0.0.1,<0.1",
+    "pdfplumber>=0.10.0",
+    "chromadb>=0.4.0",
+    "openai>=1.0.0",
+    "sentence-transformers>=2.2.0",
+    "python-dotenv>=1.0.0",
+    "pymupdf>=1.27.2.3",
+    "numpy>=1.21,<2",
+    "ollama>=0.6.2",
+    "fastapi>=0.136.1",
+    "uvicorn>=0.46.0",
+    "python-multipart>=0.0.27",
+    "torch>=2.2.0",
+    "tomli>=2.0.0",
+]
