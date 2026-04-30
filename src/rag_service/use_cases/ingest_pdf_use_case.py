@@ -17,8 +17,11 @@ class IngestPdfUseCase:
     
     def execute(self, pdf_path: str) -> str:
         pages_text = self.pdf_parser.parse(pdf_path)
-        chunks = self.chunker.chunk(pages_text)
-        document = Document.from_file(pdf_path, pages_text, chunks)
+        
+        document = Document.from_file(pdf_path, pages_text)
+        chunks = self.chunker.chunk(document.id, pages_text)
+        document.add_chunks(chunks)
+        
         self.document_repo.save_document(document)
 
         for chunk in chunks:

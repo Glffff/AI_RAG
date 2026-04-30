@@ -22,11 +22,11 @@ class Document:
     chunks: List[Chunk]
 
     @staticmethod
-    def from_file(file_path: str, pages_text:List[Page], chunks: List[Chunk]) -> Document:
+    def from_file(file_path: str, pages_text:List[Page]) -> Document:
         return Document(id=str(uuid.uuid4()), 
                         filename=file_path, 
                         pages=pages_text, 
-                        chunks=chunks
+                        chunks=[]
                         )
     
     def add_chunks(self, chunks: List[Chunk]):
