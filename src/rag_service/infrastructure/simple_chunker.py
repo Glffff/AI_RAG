@@ -1,6 +1,6 @@
 import uuid
-from rag_service.domain.ports import Chunker
-from rag_service.domain.models import Page, Chunk
+from src.rag_service.domain.ports import Chunker
+from src.rag_service.domain.models import Page, Chunk
 
 class SimpleChunker(Chunker):
     def __init__(self, chunk_size: int = 1000, chunk_overlap: int = 200):

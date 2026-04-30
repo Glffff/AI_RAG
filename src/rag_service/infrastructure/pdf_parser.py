@@ -1,6 +1,6 @@
 import pymupdf
-from rag_service.domain.ports import PdfParser
-from rag_service.domain.models import Page
+from src.rag_service.domain.ports import PdfParser
+from src.rag_service.domain.models import Page
 
 class PymupdfParser(PdfParser):
     def parse(self, file_path: str) -> list[Page]:

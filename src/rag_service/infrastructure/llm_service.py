@@ -1,5 +1,5 @@
-from rag_service.domain.ports import LLMService
-from rag_service.domain.models import Question, Chunk
+from src.rag_service.domain.ports import LLMService
+from src.rag_service.domain.models import Question, Chunk
 from typing import List
 import ollama
 

@@ -1,5 +1,5 @@
 import numpy as np
-from rag_service.domain.ports import VectorRepository, Chunk
+from src.rag_service.domain.ports import VectorRepository, Chunk
 
 class MemoryVectorRepository(VectorRepository):
     def __init__(self, top_k: int = 3):

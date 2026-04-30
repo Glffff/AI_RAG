@@ -1,14 +1,14 @@
-from rag_service.use_cases.ask_question_use_case import AskQuestionUseCase
-from rag_service.use_cases.ingest_pdf_use_case import IngestPdfUseCase
+from src.rag_service.use_cases.ask_question_use_case import AskQuestionUseCase
+from src.rag_service.use_cases.ingest_pdf_use_case import IngestPdfUseCase
 
-from rag_service.infrastructure.embedding import SentenceTransformerEmbeddingService
-from rag_service.infrastructure.memory_vector_repo import MemoryVectorRepository
-from rag_service.infrastructure.llm_service import OllamaLLMService
-from rag_service.infrastructure.pdf_parser import PymupdfParser
-from rag_service.infrastructure.simple_chunker import SimpleChunker
-from rag_service.infrastructure.memory_document_repo import MemoryDocumentRepository  
+from src.rag_service.infrastructure.embedding import SentenceTransformerEmbeddingService
+from src.rag_service.infrastructure.memory_vector_repo import MemoryVectorRepository
+from src.rag_service.infrastructure.llm_service import OllamaLLMService
+from src.rag_service.infrastructure.pdf_parser import PymupdfParser
+from src.rag_service.infrastructure.simple_chunker import SimpleChunker
+from src.rag_service.infrastructure.memory_document_repo import MemoryDocumentRepository  
 
-from config import settings
+from src.config import settings
 
 class DependencyInjector:
     def __init__(self):

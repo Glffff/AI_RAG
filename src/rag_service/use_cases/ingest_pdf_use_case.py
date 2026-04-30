@@ -1,5 +1,5 @@
-from rag_service.domain.ports import PdfParser, Chunker, Embedder, DocumentRepository, VectorRepository
-from rag_service.domain.models import Document
+from src.rag_service.domain.ports import PdfParser, Chunker, Embedder, DocumentRepository, VectorRepository
+from src.rag_service.domain.models import Document
 
 class IngestPdfUseCase:
     def __init__(self, 

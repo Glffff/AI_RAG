@@ -1,5 +1,5 @@
-from rag_service.domain.models import Question, Answer
-from rag_service.domain.ports import Embedder, VectorRepository, LLMService
+from src.rag_service.domain.models import Question, Answer
+from src.rag_service.domain.ports import Embedder, VectorRepository, LLMService
 
 class AskQuestionUseCase:
     def __init__(self,

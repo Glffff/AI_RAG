@@ -1,5 +1,5 @@
-from rag_service.domain.models import Document
-from rag_service.domain.ports import DocumentRepository
+from src.rag_service.domain.models import Document
+from src.rag_service.domain.ports import DocumentRepository
 
 class MemoryDocumentRepository(DocumentRepository):
     def __init__(self):
