@@ -1,22 +1,18 @@
 # PDF Settings
 collection_name = "pdf_embeddings"
+
+# Vector Database Settings
 qdrant_url = "http://localhost:6333"
 qdrant_vector_size = 384
 
 db_dir = ""
 
 # LLM Settings
-llm_provider = "llama3.1:8b"
-local_embeddings_model = "all-MiniLM-L6-v2"
+llm_model = "llama3.1:8b"
+llm_base_url = "http://localhost:11434"
+embedding_model = "all-MiniLM-L6-v2"
 
 # Text Processing
 chunk_size = 1000
 chunk_overlap = 200
 top_k_chunks = 5
-
-# Model Names
-ollama_model = ""
-ollama_base_url = ""
-
-llm_temperature = 0.7
-

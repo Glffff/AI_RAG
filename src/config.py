@@ -10,15 +10,13 @@ class Settings(BaseSettings):
     qdrant_url: str
 
     openai_api_key: str
-    llm_provider: str
-    embeddings_provider: str = "local"
+    llm_model: str
+    llm_base_url: str
+    embedding_model: str
+
     chunk_size: int = 1000
     chunk_overlap: int = 200
     top_k_chunks: int = 5
-    ollama_model: str = "mistral"
-    ollama_base_url: str = "http://localhost:11434"
-    local_embeddings_model: str = "all-MiniLM-L6-v2"
-    llm_temperature: float = 0.7
     
     model_config = SettingsConfigDict(
         env_file=str(Path(__file__).parent.parent / ".env"),
