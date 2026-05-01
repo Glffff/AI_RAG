@@ -15,13 +15,16 @@ class OllamaLLMService(LLMService):
     using a specified Ollama model.
     """
 
-    def __init__(self, model_name: str) -> None:
+    def __init__(self, model_name: str, base_url: str) -> None:
         """Initialize the LLM service with a specific Ollama model.
         
         Args:
             model_name: Name of the Ollama model to use (e.g., 'mistral', 'llama3.1:8b').
+            base_url: Base URL for the Ollama service.
         """
         self._model_name = model_name
+        self._base_url = base_url
+        self._client = ollama.Client(host=base_url)
 
     def generate_answer(self, question: Question, context_chunks: List[Chunk]) -> str:
         """Generate an answer to a question using provided context.
@@ -45,7 +48,7 @@ class OllamaLLMService(LLMService):
                 If you don't know the answer based on the context, say so.
                 """
 
-        response = ollama.chat(
+        response = self._client.chat(
             model=self._model_name,
             messages=[{"role": "user", "content": prompt}],
         )
