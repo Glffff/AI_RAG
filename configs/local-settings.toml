@@ -15,8 +15,8 @@ chunk_overlap = 200
 top_k_chunks = 5
 
 # Model Names
-ollama_model = "mistral"
-ollama_base_url = "http://localhost:11434"
+ollama_model = ""
+ollama_base_url = ""
 
 llm_temperature = 0.7
 
