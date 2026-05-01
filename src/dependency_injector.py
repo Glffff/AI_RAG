@@ -19,20 +19,27 @@ class DependencyInjector:
             vector_size=settings.qdrant_vector_size,
             qdrant_url=settings.qdrant_url
         )
+        self._services["embedding_service"] = SentenceTransformerEmbeddingService(
+            model_name=settings.embedding_model
+        )
+        self._services["llm_service"] = OllamaLLMService(
+            model_name=settings.llm_model, 
+            base_url=settings.llm_base_url
+        )
         #self._services["vector_repo"] = MemoryVectorRepository(top_k=settings.top_k_chunks)
         
     def create_ask_question_use_case(self) -> AskQuestionUseCase:
         return AskQuestionUseCase(
-            SentenceTransformerEmbeddingService(model_name=settings.local_embeddings_model), 
+            self._services["embedding_service"], 
             self._services["vector_repo"], 
-            OllamaLLMService(model_name=settings.llm_provider)
+            self._services["llm_service"]
         )
     
     def create_ingest_pdf_use_case(self):
         return IngestPdfUseCase(
             PymupdfParser(), 
             SimpleChunker(chunk_size=settings.chunk_size, chunk_overlap=settings.chunk_overlap), 
-            SentenceTransformerEmbeddingService(model_name=settings.local_embeddings_model), 
+            self._services["embedding_service"], 
             MemoryDocumentRepository(),
             self._services["vector_repo"]
         )
